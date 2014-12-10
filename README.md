@@ -7,7 +7,7 @@ Adds (fake) auto completion and hints to web2py global objects (such as db, requ
 
 Because auto completion and hints makes writing code so much faster! 
 
-Unfortnately in web2py what we really want code completion on are the models (db.my_table.my_field etc...) but these are built up dynamically at every request (as opposed to in django where they are class definitions) so that's just not possible.
+Unfortunately in web2py what we really want code completion on are the models (db.my_table.my_field etc...) But these are built up dynamically at every request (as opposed to in django where they are class definitions) so that's just not possible.
 
 Unless we cheat :)
 
@@ -15,9 +15,9 @@ Unless we cheat :)
 
 
 
-By using a live instance of db object, we can write dummy class definitions mimicking the tables & fields to a file. 
+Using a live instance of db object, we can generate a python file which contains dummy class definitions which mimick those tables & fields. 
 
-We can then fake import that file:
+We can then fake import that generated file:
 
         if 0:
             import autocomplete_fakes.py
@@ -38,7 +38,8 @@ The generated file also creates other global variables like "response" and "requ
 1. Copy the file __auto_completion_support.py__ into the modules folder of a web2py application.
 2. Import the module and call __generate_auto_completion_file(db, file)__ from any place in your web2py app so long as the models have all been processed. (I call it from a function in a test controller in which I have imported the module)
 3. The file parameter is where you want the dummy classes to be written to (file contents will be overwritten).
-4. Fake import that file into any source file (controller, module) in which you want auto completion, like so:
+4. You will need to re-run this every time you change your models. If you want it to run at every request while in dev mode, you can always add a model file that executes last ('zzz.py' should do) and call it from there.
+5. Fake import that file into any source file (controller, module) in which you want auto completion, like so:
 
         if 0:
             import autocomplete_fakes.py
@@ -46,7 +47,7 @@ The generated file also creates other global variables like "response" and "requ
             
 I add that second line to get code completion and hints on things like __SQLForm__ which is useful.
 
-You may need to adjust your IDE settings to include an extra python path to point to the file's location, and also include path to web2py source.
+You may need to adjust your IDE settings to include an extra python path to point to the file's location, and also include the path to web2py source.
 
 ##Getting help:
 
