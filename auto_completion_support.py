@@ -35,7 +35,7 @@ def generate_auto_completion_file(db, file_path):
         '#  db.my_table.my_field.represent',
         '#  For other objects like "response" and "request" you get what you get.',
         '#  It is rebuilt from a running copy of db by the function generate_auto_completion_file()',
-        '#  which is most likely in the auto_completion_support.py file in modules.
+        '#  which is most likely in the auto_completion_support.py file in modules.',
         '#',
         'from gluon import *',
         'from gluon.globals import *',
